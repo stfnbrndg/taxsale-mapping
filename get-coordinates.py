@@ -19,8 +19,8 @@ csv = "taxsale.csv"
 df = pandas.read_csv(csv, delimiter = ',', index_col=[0])
 
 # Add latitude and longitude columns in dataframe
-df['LATITUDE'] = "l"
-df['LONGITUDE'] = "l"
+df['LATLONG'] = "l"
+#df['LONGITUDE'] = "l"
 
 # Get lat/long (geocode) each address in address column
 addresses = df["PROP_ADDRESS"].tolist()
@@ -30,7 +30,11 @@ for row in df.iterrows():
     url = "https://maps.googleapis.com/maps/api/geocode/json?address= %s &key= %s" % (addresses[count], api_key)
     response = requests.get(url)
     response_json = response.json()
-    print(response_json)
+    lat = (response_json["results"][0]["geometry"]["location"]["lat"])
+    lng = (response_json["results"][0]["geometry"]["location"]["lng"])
+    df.loc[count, 'LATLONG'] = "%f %f" % (lat, lng)
+    print(addresses[count])
+    print(df.loc[count, 'LATLONG'])
     count += 1
 
 # Print Address column contents without printing index column alongside
