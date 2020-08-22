@@ -1,3 +1,5 @@
+# Pulls down tax sale PDF containing properties to be sold, and converts it to CSV
+
 import requests
 import tabula
 import urllib.request
@@ -25,7 +27,7 @@ file = pathlib.Path(csv)
 if not file.exists():
     tabula.convert_into(pdf, csv, pages = "all")
 
-# // Clean up addresses (if necessary)
+# // Prints out data frame columns, just to feel good about the data
 
 # Read addresses into dataframe
 df = pandas.read_csv(csv, delimiter = ',', index_col=[0])

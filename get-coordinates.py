@@ -1,3 +1,5 @@
+# Reads in tax sale properties CSV as data frame. Geocodes data using Google Maps API, then writes lat/long back to CSV in additional column.
+
 import os
 import pandas
 import json
