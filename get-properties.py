@@ -27,11 +27,21 @@ file = pathlib.Path(csv)
 if not file.exists():
     tabula.convert_into(pdf, csv, pages = "all")
 
+# Delete first row to clean up columns
+#with open(csv, 'rb') as input, open(csv, 'wb') as output:
+#    writer = csv.writer(output)
+#    for row in csv.reader(input):
+#        if 
+
+
 # // Prints out data frame columns, just to feel good about the data
 
 # Read addresses into dataframe
-df = pandas.read_csv(csv, delimiter = ',', index_col=[0])
-print(df)
+#df = pandas.read_csv(csv, delimiter = ',', index_col=[0])
+df = pandas.read_csv(csv, delimiter = ',')
+new_header = df.iloc[0]
+df.columns = new_header
+#print(df)
 
 for col in df.columns:
     print(col)

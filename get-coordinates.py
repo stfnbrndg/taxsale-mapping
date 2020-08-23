@@ -17,6 +17,8 @@ csv = "taxsale.csv"
 
 # Read addresses into dataframe
 df = pandas.read_csv(csv, delimiter = ',', index_col=[0])
+new_header = df.iloc[0]
+df.columns = new_header
 
 # Add latitude and longitude columns in dataframe
 df['LATLONG'] = "l"
@@ -25,7 +27,7 @@ df['LATLONG'] = "l"
 # Get lat/long (geocode) each address in address column
 addresses = df["PROP_ADDRESS"].tolist()
 
-count = 0
+count = 1
 for row in df.iterrows():
     url = "https://maps.googleapis.com/maps/api/geocode/json?address= %s &key= %s" % (addresses[count], api_key)
     response = requests.get(url)
